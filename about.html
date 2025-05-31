@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会社概要 - ContractPro</title>
+    <style>
+        /* リセットCSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 基本スタイル */
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #0056b3;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #003d82;
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: #0056b3;
+            border: 2px solid #0056b3;
+        }
+
+        .btn-secondary:hover {
+            background-color: #f0f8ff;
+        }
+
+        /* ヘッダー */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0056b3;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #333;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: #0056b3;
+        }
+
+        /* ページヘッダー */
+        .page-header {
+            background: linear-gradient(rgba(0, 86, 179, 0.8), rgba(0, 86, 179, 0.8)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80') center/cover no-repeat;
+            padding: 150px 0 80px;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .page-header p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* セクション共通スタイル */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 60px;
+            color: #0056b3;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 会社概要セクション */
+        .company-overview {
+            background-color: white;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .overview-content h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #0056b3;
+        }
+
+        .overview-content p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .overview-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 代表メッセージセクション */
+        .ceo-message {
+            background-color: #f9f9f9;
+        }
+
+        .ceo-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .ceo-photo {
+            text-align: center;
+        }
+
+        .ceo-photo img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .ceo-info {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .ceo-info h4 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .ceo-info p {
+            color: #666;
+        }
+
+        .ceo-text {
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .ceo-text p {
+            margin-bottom: 20px;
+        }
+
+        /* ミッション・ビジョン・バリューセクション */
+        .mvv {
+            background-color: white;
+        }
+
+        .mvv-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .mvv-card {
+            text-align: center;
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .mvv-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .mvv-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .mvv-card h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #0056b3;
+        }
+
+        .mvv-card p {
+            font-size: 16px;
+        }
+
+        /* 沿革セクション */
+        .history {
+            background-color: #f9f9f9;
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #0056b3;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin: 0 30px;
+        }
+
+        .timeline-year {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0056b3;
+            margin-bottom: 10px;
+        }
+
+        .timeline-event {
+            font-size: 16px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            width: 12px;
+            height: 12px;
+            background-color: #0056b3;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        /* チーム紹介セクション */
+        .team {
+            background-color: white;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .team-member {
+            text-align: center;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .member-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background-color: #eee;
+            overflow: hidden;
+        }
+
+        .member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .member-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .member-position {
+            color: #0056b3;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .member-bio {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* 企業情報セクション */
+        .company-info {
+            background-color: #f9f9f9;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .info-table {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-table h3 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #0056b3;
+        }
+
+        .info-row {
+            display: flex;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: bold;
+            width: 120px;
+            flex-shrink: 0;
+        }
+
+        .info-value {
+            flex: 1;
+        }
+
+        .office-map {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .office-map h3 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #0056b3;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 18px;
+        }
+
+        /* フッター */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex-basis: 23%;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #0056b3;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #444;
+        }
+
+        /* レスポンシブデザイン */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 0 10px 10px;
+            }
+
+            .page-header h1 {
+                font-size: 36px;
+            }
+
+            .overview-grid,
+            .ceo-content,
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                flex-direction: row !important;
+                margin-left: 40px;
+            }
+
+            .timeline-content {
+                margin: 0;
+            }
+
+            .timeline-item::before {
+                left: 20px;
+                transform: none;
+            }
+
+            .footer-column {
+                flex-basis: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">Contract<span>Pro</span></a>
+            <nav>
+                <ul>
+                    <li><a href="index.html#features">特徴</a></li>
+                    <li><a href="index.html#how-it-works">使い方</a></li>
+                    <li><a href="index.html#pricing">料金</a></li>
+                    <li><a href="about.html" class="active">会社概要</a></li>
+                    <li><a href="#contact">お問い合わせ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ページヘッダー -->
+    <section class="page-header">
+        <div class="container">
+            <h1>会社概要</h1>
+            <p>ContractProを運営する私たちについてご紹介します。革新的な契約管理ソリューションで、ビジネスの未来を創造します。</p>
+        </div>
+    </section>
+
+    <!-- 会社概要セクション -->
+    <section class="section company-overview">
+        <div class="container">
+            <h2 class="section-title">私たちについて</h2>
+            <div class="overview-grid">
+                <div class="overview-content">
+                    <h3>革新的な契約管理で、ビジネスの可能性を広げる</h3>
+                    <p>ContractPro株式会社は、2018年に設立された契約管理ソリューションのリーディングカンパニーです。私たちは、従来の紙ベースの契約プロセスをデジタル化し、企業の生産性向上とコスト削減を実現しています。</p>
+                    <p>創業以来、5,000社以上の企業にサービスを提供し、累計100万件以上の契約管理をサポートしてきました。私たちの使命は、テクノロジーの力で契約管理を革新し、すべての企業がより効率的にビジネスを展開できる世界を創ることです。</p>
+                    <p>AI技術と法務の専門知識を組み合わせた独自のソリューションで、お客様のビジネス成長を支援し続けています。</p>
+                </div>
+                <div class="overview-image">
+                    <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=1926&q=80" alt="オフィスの様子">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 代表メッセージセクション -->
+    <section class="section ceo-message">
+        <div class="container">
+            <h2 class="section-title">代表メッセージ</h2>
+            <div class="ceo-content">
+                <div class="ceo-photo">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="代表取締役 山田太郎">
+                    <div class="ceo-info">
+                        <h4>山田 太郎</h4>
+                        <p>代表取締役CEO</p>
+                    </div>
+                </div>
+                <div class="ceo-text">
+                    <p>ContractProを設立したきっかけは、私自身が前職で経験した契約管理の煩雑さでした。重要な契約書が見つからない、更新期限を見落とす、承認プロセスに時間がかかりすぎるといった課題に直面し、「もっと効率的な方法があるはず」と考えたのが始まりです。</p>
+                    <p>現在、デジタル化が進む中で、契約管理だけが旧来の方法に留まっているのは大きな機会損失です。私たちは、最新のテクノロジーを活用して、この課題を根本的に解決したいと考えています。</p>
+                    <p>お客様一人ひとりのビジネスに寄り添い、真に価値のあるソリューションを提供し続けることで、日本のビジネス環境をより良いものにしていきたいと思います。今後ともContractProをよろしくお願いいたします。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ミッション・ビジョン・バリューセクション -->
+    <section class="section mvv">
+        <div class="container">
+            <h2 class="section-title">ミッション・ビジョン・バリュー</h2>
+            <div class="mvv-grid">
+                <div class="mvv-card">
+                    <div class="mvv-icon">🎯</div>
+                    <h3>ミッション</h3>
+                    <p>契約管理の革新を通じて、すべての企業がより効率的で透明性の高いビジネスを実現できる世界を創造します。</p>
+                </div>
+                <div class="mvv-card">
+                    <div class="mvv-icon">🌟</div>
+                    <h3>ビジョン</h3>
+                    <p>2030年までに、世界中の企業が当たり前のように使う契約管理プラットフォームのグローバルスタンダードになります。</p>
+                </div>
+                <div class="mvv-card">
+                    <div class="mvv-icon">💎</div>
+                    <h3>バリュー</h3>
+                    <p>顧客第一、継続的な革新、透明性、チームワーク、そして社会への貢献を大切にし、持続可能な成長を目指します。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 沿革セクション -->
+    <section class="section history">
+        <div class="container">
+            <h2 class="section-title">会社沿革</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2018年</div>
+                        <div class="timeline-event">ContractPro株式会社設立。創業メンバー3名でサービス開発を開始。</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2019年</div>
+                        <div class="timeline-event">ContractPro β版リリース。初期ユーザー50社との実証実験を開始。</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2020年</div>
+                        <div class="timeline-event">正式版リリース。シリーズAラウンドで5億円の資金調達を実施。</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2021年</div>
+                        <div class="timeline-event">ユーザー数1,000社突破。大阪支社を開設。</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2022年</div>
+                        <div class="timeline-event">AI機能を大幅強化。ユーザー数3,000社突破。</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2023年</div>
+                        <div class="timeline-event">シリーズBラウンドで15億円の資金調達。海外展開を開始。</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2024年</div>
+                        <div class="timeline-event">ユーザー数5,000社突破。エンタープライズ向け機能を大幅拡充。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- チーム紹介セクション -->
+    <section class="section team">
+        <div class="container">
+            <h2 class="section-title">チーム紹介</h2>
+            <p class="section-subtitle">多様な背景を持つ専門家が、お客様に最高のサービスを提供するために日々努力しています。</p>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="山田太郎">
+                    </div>
+                    <div class="member-name">山田 太郎</div>
+                    <div class="member-position">代表取締役CEO</div>
+                    <div class="member-bio">東京大学法学部卒業後、大手法律事務所で企業法務に従事。その後、テック企業でプロダクト開発を経験し、ContractProを創業。</div>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="佐藤花子">
+                    </div>
+                    <div class="member-name">佐藤 花子</div>
+                    <div class="member-position">CTO</div>
+                    <div class="member-bio">京都大学工学部卒業。大手IT企業でエンジニアリングマネージャーを経験後、ContractProに参画。AI・機械学習の専門家。</div>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="田中次郎">
+                    </div>
+                    <div class="member-name">田中 次郎</div>
+                    <div class="member-position">CPO</div>
+                    <div class="member-bio">慶應義塾大学経済学部卒業。外資系コンサルティング会社でビジネス戦略に従事後、プロダクトマネジメントの道へ。</div>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="鈴木美咲">
+                    </div>
+                    <div class="member-name">鈴木 美咲</div>
+                    <div class="member-position">法務責任者</div>
+                    <div class="member-bio">早稲田大学法学部卒業、司法試験合格。大手法律事務所で企業法務、M&Aに従事後、ContractProの法務体制構築を担当。</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 企業情報セクション -->
+    <section class="section company-info">
+        <div class="container">
+            <h2 class="section-title">企業情報</h2>
+            <div class="info-grid">
+                <div class="info-table">
+                    <h3>会社概要</h3>
+                    <div class="info-row">
+                        <div class="info-label">会社名</div>
+                        <div class="info-value">ContractPro株式会社</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">設立</div>
+                        <div class="info-value">2018年4月1日</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">資本金</div>
+                        <div class="info-value">25億円</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">従業員数</div>
+                        <div class="info-value">150名（2024年12月現在）</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">本社所在地</div>
+                        <div class="info-value">〒100-0005<br>東京都千代田区丸の内1-1-1<br>パレスビル20F</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">事業内容</div>
+                        <div class="info-value">契約管理SaaSの開発・運営<br>法務コンサルティング</div>
+                    </div>
+                </div>
+                <div class="office-map">
+                    <h3>アクセス</h3>
+                    <div class="map-placeholder">
+                        <div>
+                            <p>📍 東京駅から徒歩3分</p>
+                            <p>JR東京駅 丸の内中央口より徒歩3分<br>
+                            東京メトロ丸ノ内線 東京駅直結<br>
+                            都営三田線 大手町駅より徒歩5分</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>ContractPro</h3>
+                    <p>契約管理をシンプルに、効率的に。あらゆる規模の企業向けの契約管理ソリューションです。</p>
+                </div>
+                <div class="footer-column">
+                    <h3>サービス</h3>
+                    <ul>
+                        <li><a href="#">契約作成</a></li>
+                        <li><a href="#">電子署名</a></li>
+                        <li><a href="#">契約管理</a></li>
+                        <li><a href="#">テンプレート</a></li>
+                        <li><a href="#">API連携</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>会社情報</h3>
+                    <ul>
+                        <li><a href="about.html">会社概要</a></li>
+                        <li><a href="#">採用情報</a></li>
+                        <li><a href="#">プレスリリース</a></li>
+                        <li><a href="#">パートナー</a></li>
+                        <li><a href="#">ブログ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column" id="contact">
+                    <h3>お問い合わせ</h3>
+                    <ul>
+                        <li><a href="#">お問い合わせフォーム</a></li>
+                        <li><a href="#">サポート</a></li>
+                        <li><a href="#">03-1234-5678</a></li>
+                        <li><a href="#">info@contractpro.jp</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ContractPro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
